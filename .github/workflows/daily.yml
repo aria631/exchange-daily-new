@@ -1,5 +1,8 @@
 name: Daily Exchange News
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: "0 2 * * *"
@@ -25,10 +28,10 @@ jobs:
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
         run: python main.py
 
-      - name: Save report
-        run: |
-          git config user.name github-actions
-          git config user.email actions@github.com
-          git add reports
-          git commit -m "update report" || exit 0
-          git push
+- name: Save report
+  run: |
+    git config user.name github-actions
+    git config user.email actions@github.com
+    git add reports
+    git commit -m "update report" || exit 0
+    git push
