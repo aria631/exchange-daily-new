@@ -3,7 +3,10 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from openai import OpenAI
 
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+client = OpenAI(
+    api_key=os.environ["OPENAI_API_KEY"],
+    base_url=os.environ["OPENAI_BASE_URL"]
+)
 
 def main():
     date = datetime.now(timezone.utc).astimezone(
@@ -29,7 +32,7 @@ def main():
 """
 
     r = client.responses.create(
-        model="gpt-5",
+        model=os.environ["OPENAI_MODEL"],
         input=prompt
     )
 
